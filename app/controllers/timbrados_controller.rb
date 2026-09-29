@@ -4,6 +4,7 @@ class TimbradosController < ApplicationController
   def create
     return error_response if payload_errores.any?
     @factura.with_lock do
+      return ya_timbrada_response if factura_timbrada?
       return success_response if timbrado_previamente
 
       resultado = Facturas::Timbrador.new(@factura, params).ejecuta
@@ -55,6 +56,18 @@ class TimbradosController < ApplicationController
   def timbrado_previamente
     @timbrado = Timbrado.where(external_id: params[:external_id]).first
     @timbrado.present?
+  end
+
+  def factura_timbrada?
+    @factura.uuid_fiscal.present?
+  end
+
+  def ya_timbrada_response
+    render json: {
+      status: "timbrada",
+      external_id: params[:external_id],
+      uuid_fiscal: @factura.uuid_fiscal
+    }, status: :ok
   end
 
   def busca_factura
