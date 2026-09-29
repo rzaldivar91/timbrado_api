@@ -1,25 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requisitos
 
-Things you may want to cover:
+- Ruby 3.2.2
+- PostgreSQL 14+ (probado con 16.15)
 
-* Ruby version
+# Permisos para crear la base de datos:
+```bash
+sudo -u postgres psql -c "ALTER USER tu_usuario CREATEDB;"
+```
 
-* System dependencies
+## Setup
 
-* Configuration
+```
+bundle install
+rails db:setup
+bundle exec rspec
+rails s
+```
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 # timbrado_api
