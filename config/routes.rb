@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :timbrados, only: :create
+  get "reportes/clientes_resumen", to: "reportes#clientes_resumen"
+  get "reportes/facturas_vencidas", to: "reportes#facturas_vencidas"
 end
